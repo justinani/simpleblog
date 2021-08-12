@@ -1,0 +1,70 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:simpleblog="http://typo3.org/ns/ExtbaseBook/Simpleblog/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+This Template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+    <h1>Listing for Blog</h1>
+    <p>Aktuelles Limit in setup-typoscript {settings.blog.max}</p>
+
+    <f:flashMessages />
+    <simpleblog:dummyText length="666" > This is a dummy text </simpleblog:dummyText>
+
+    <simpleblog:emailObfuscator>michael@example.com</simpleblog:emailObfuscator>
+
+
+    <f:form action="list" additionalAttributes="{role: 'form'}">
+        <div class="input-group mb-3">
+            <f:form.textfield name="search" value="{search}" class="form-control" />
+            <div class="input-group-append">
+                <f:form.submit value="{f:translate(key: 'label.search')}" class="btn btn-outline-secondary" />
+            </div>
+        </div>
+    </f:form>
+
+    <table  class="tx_simpleblog" >
+        <tr>
+            <th><f:translate key="tx_simpleblog_domain_model_blog.title" /></th>
+            <th><f:translate key="tx_simpleblog_domain_model_blog.description" /></th>
+            <th><f:translate key="tx_simpleblog_domain_model_blog.image" /></th>
+            <th> </th>
+            <th> </th>
+        </tr>
+
+        <simpleblog:widget.filter objects="{blogs}" as="filteredBlogs" property="title">
+            <simpleblog:widget.sort objects="{filteredBlogs}" as="sortedBlogs" property="title">
+                <f:for each="{sortedBlogs}" as="blog">
+
+                    <tr>
+                        <td><f:link.action action="show" arguments="{blog : blog}">{blog.title}</f:link.action></td>
+                        <td><f:link.action action="show" arguments="{blog : blog}">{blog.description}</f:link.action></td>
+                        <td><f:link.action action="show" arguments="{blog : blog}">{blog.image.originalResource.name}</f:link.action></td>
+                        <td><f:link.action action="deleteConfirm" arguments="{blog:blog}" class="btn btn-primary btn-sm"><i class="fas fa-trash"></i><f:translate key="label.delete" /></f:link.action></td>
+                        <td><f:link.action action="updateForm" arguments="{blog:blog}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i><f:translate key="label.edit" /></f:link.action></td>
+                        <td><f:link.action action="show" arguments="{blog:blog}" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i><f:translate key="label.show" /></f:link.action></td>
+
+
+                    </tr>
+                </f:for>
+            </simpleblog:widget.sort>
+        </simpleblog:widget.filter>
+    </table>
+
+    <p><small>Max {settings.blog.max} Blogs are shown.</small></p>
+
+    <f:link.action action="newForm" class="btn btn-primary">
+        <i class="fas fa-plus-circle"></i>
+        <f:translate key="blog.list.button.add-blogs" />
+    </f:link.action>
+
+</f:section>
+</html>

@@ -1,0 +1,27 @@
+{
+    "name": "extbase-book/simpleblog",
+    "type": "typo3-cms-extension",
+    "description": "Demo extension to implement a simple Blog, based in the \"TYPO3 Extbase\" book",
+    "authors": [
+        {
+            "name": "Michael Schams",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "ExtbaseBook\\Simpleblog\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ExtbaseBook\\Simpleblog\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "typo3-ter/simpleblog": "self.version"
+    }
+}

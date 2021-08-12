@@ -1,0 +1,21 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="content">
+    <h1>Show Blog</h1>
+    <div class="card">
+        <h5 class="card-header">
+            {blog.title}
+        </h5>
+
+        <div class="card-body">
+            <p class="card-text">
+                <f:format.nl2br>{blog.description}</f:format.nl2br>
+            </p>
+        </div>
+    </div>
+
+    <f:link.action action="list" class="btn btn-primary">Back to Blog list</f:link.action>
+
+</f:section>
+</html>
